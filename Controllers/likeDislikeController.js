@@ -88,6 +88,8 @@ const dislikeBlog = catchAsync(async (req, res, next) => {
 // *********************** GET ALL LIKES **************************
 
 const getAllLikes = catchAsync(async (req, res, next) => {
+  //await LikeDislike.restore();
+
   const likeDetails = await LikeDislike.find({ like: true })
     .populate({
       path: "user",

@@ -1,3 +1,7 @@
+const BlogPostModel = require("../models/blogModel");
+const Comment = require("../models/commentModel");
+const LikeDislike = require("../models/likeDislikeModel");
+
 const TopicModel = require("../models/topicModel");
 const topicModel = require("../models/topicModel");
 const AppError = require("../utils/appError");
@@ -38,6 +42,14 @@ const deleteTopicById = catchAsync(async (req, res, next) => {
     return next(
       new AppError("You are not authorized to delete this post", 401)
     );
+  }
+  //hard delte of blogs related to this topic
+  const blogposts = await BlogPostModel.find({ blogTopic: id });
+  //console.log(blogposts);
+  for (let i = 0; i < blogposts.length; i++) {
+    await LikeDislike.delete({ blog: blogposts[i].id });
+    await Comment.delete({ blog: blogposts[i].id });
+    await BlogPostModel.deleteMany(blogposts[i]);
   }
   const deltopic = await TopicModel.deleteOne(topic);
   // const topic = await TopicModel.deleteMany();

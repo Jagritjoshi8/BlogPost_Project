@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const mongooseDelete = require("mongoose-delete");
 const commentSchema = new mongoose.Schema({
   content: {
     type: String,
@@ -18,6 +18,8 @@ const commentSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+commentSchema.plugin(mongooseDelete, { deletedAt: true });
+commentSchema.plugin(mongooseDelete, { overrideMethods: "all" });
 
 const Comment = new mongoose.model("Comment", commentSchema);
 

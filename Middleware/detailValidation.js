@@ -30,7 +30,7 @@ const detailValidation = catchAsync(async (req, res, next) => {
     );
   }
 
-  if (password.length <= 5 || password.length >= 15) {
+  if (password.length < 5 || password.length >= 15) {
     return next(
       new AppError("Password is very short,put atleast 5 character", 400)
     );

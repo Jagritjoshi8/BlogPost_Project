@@ -11,7 +11,7 @@ const blogDetailValidation = catchAsync(async (req, res, next) => {
   let missingValues = [];
 
   if (!title) missingValues.push("Title ");
-  if (!author) missingValues.push("Author ");
+  // if (!author) missingValues.push("Author ");
   if (!content) missingValues.push("Content ");
   if (!blogTopic) missingValues.push("blogTopic ");
 

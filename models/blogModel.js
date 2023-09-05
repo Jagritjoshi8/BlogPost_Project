@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongooseDelete = require("mongoose-delete");
 
 const BlogPostSchema = new mongoose.Schema(
   {
@@ -9,7 +10,7 @@ const BlogPostSchema = new mongoose.Schema(
     },
     author: {
       type: String,
-      required: true,
+      ref: "User",
     },
     blogTopic: {
       type: mongoose.Schema.Types.ObjectId,
@@ -38,6 +39,8 @@ BlogPostSchema.virtual("topicName", {
   justOne: true,
   select: "name",
 });
+BlogPostSchema.plugin(mongooseDelete, { deletedAt: true });
+BlogPostSchema.plugin(mongooseDelete, { overrideMethods: "all" });
 
 const BlogPostModel = new mongoose.model("BlogPost", BlogPostSchema);
 

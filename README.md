@@ -1,6 +1,6 @@
-# BLOG PROJECT TASK
+# BLOG PROJECT TASK BY JAGRIT
 
-Need to create Project for Blog posting. where user should be able to register and logic and create topic. and can create post and with selected topic
+Backend Project for Blog posting. where user is able to register and logic and create topic. and can create post and with selected topic
 and user can like dislike the posts. can get posts by most likes and recent post and user can comment on posts.
 
 APIS- //register user

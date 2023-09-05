@@ -1,3 +1,4 @@
+const mongooseDelete = require("mongoose-delete");
 const BlogPostModel = require("../models/blogModel");
 const mongoose = require("mongoose");
 const catchAsync = require("express-async-handler");
@@ -18,7 +19,7 @@ const createBlogPost = catchAsync(
 
     const blogPost = await BlogPostModel.create({
       title,
-      author,
+      author: req.user.name,
       blogTopic,
       content,
       user: req.user.id,
@@ -41,6 +42,7 @@ const createBlogPost = catchAsync(
 
 //***************************** GET ALL BLOGPOSTS ************************************
 const getAllBlogPosts = catchAsync(async (req, res, next) => {
+  // await BlogPostModel.restore();
   const blogPosts = await BlogPostModel.find()
     .populate("blogTopic", "name")
     .lean();
@@ -153,8 +155,8 @@ const deleteBlogPostById = catchAsync(async (req, res, next) => {
       new AppError("You are not authorized to delete this post", 401)
     );
   }
-  await LikeDislike.deleteMany({ blog: id });
-  await Comment.deleteMany({ blog: id });
+  await LikeDislike.delete({ blog: id });
+  await Comment.delete({ blog: id });
   const deleted = await BlogPostModel.findByIdAndDelete(id);
   if (deleted) {
     res.status(201).json({

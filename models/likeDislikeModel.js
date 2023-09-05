@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const mongooseDelete = require("mongoose-delete");
 const likeDislikeSchema = new mongoose.Schema(
   {
     user: {
@@ -27,6 +27,8 @@ likeDislikeSchema.virtual("likeCount", {
   count: true,
   match: { like: true },
 });
+likeDislikeSchema.plugin(mongooseDelete, { deletedAt: true });
+likeDislikeSchema.plugin(mongooseDelete, { overrideMethods: "all" });
 
 const LikeDislike = new mongoose.model("LikeDislike", likeDislikeSchema);
 

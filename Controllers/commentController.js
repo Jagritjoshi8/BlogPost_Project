@@ -7,6 +7,8 @@ const { default: mongoose } = require("mongoose");
 // ******************************** GET ALL COMMENTS ********************************
 
 const getAllComments = catchAsync(async (req, res, next) => {
+  //await Comment.restore();
+
   const comments = await Comment.find()
     .populate({
       path: "commentBy",

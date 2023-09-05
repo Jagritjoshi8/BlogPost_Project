@@ -17,6 +17,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
+    "mongoose-delete": "^1.0.1",
     "nodemon": "^2.0.22",
     "validator": "^13.11.0"
   }
